@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="gene_sizeguide" resource="default" engine="innodb" comment="Gene Sizeguide Table">
+        <column xsi:type="smallint" name="id" padding="6" unsigned="false" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="boolean" name="status" nullable="false" default="1" comment="Status"/>
+        <column xsi:type="int" name="category" padding="12" unsigned="false" nullable="true" identity="false"
+                comment="Category Id"/>
+        <column xsi:type="text" name="content" nullable="true" comment="Content"/>
+        <column xsi:type="text" name="title" nullable="true" comment="Title"/>
+        <column xsi:type="text" name="table_cm" nullable="true" comment="Table Centimetres"/>
+        <column xsi:type="text" name="table_in" nullable="true" comment="Table Inches"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="GENE_SIZEGUIDE_TITLE_CONTENT" indexType="fulltext">
+            <column name="title"/>
+            <column name="content"/>
+        </index>
+    </table>
+    <table name="gene_sizeguide_store" resource="default" engine="innodb" comment="Size Guide To Store Linkage Table">
+        <column xsi:type="smallint" name="row_id" padding="6" unsigned="false" nullable="false" identity="false"
+                comment="Row Id"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false"
+                comment="Store Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="row_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="GENE_SIZEGUIDE_STORE_ROW_ID_GENE_SIZEGUIDE_ID" table="gene_sizeguide_store"
+                    column="row_id" referenceTable="gene_sizeguide" referenceColumn="id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="GENE_SIZEGUIDE_STORE_STORE_ID_STORE_STORE_ID" table="gene_sizeguide_store"
+                    column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <index referenceId="GENE_SIZEGUIDE_STORE_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+    </table>
+</schema>
