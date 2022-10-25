@@ -4,27 +4,25 @@ declare(strict_types=1);
 
 namespace Gene\SizeGuide\Controller\Adminhtml\Index;
 
+use Exception;
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\Exception\LocalizedException;
 use Gene\SizeGuide\Api\SizeGuideRepositoryInterface;
-use Gene\SizeGuide\Model\SizeGuide;
 use Gene\SizeGuide\Model\SizeGuideFactory;
 
 class Save extends Action
 {
-
     /**
      * @var SizeGuideRepositoryInterface
      */
-    private $sizeGuideRepository;
+    private SizeGuideRepositoryInterface $sizeGuideRepository;
 
     /**
      * @var SizeGuideFactory
      */
-    private $factory;
+    private SizeGuideFactory $factory;
 
     /**
      * Save constructor.
@@ -45,17 +43,18 @@ class Save extends Action
     /**
      * Save guide controller
      *
-     * @return ResultInterface|ResponseInterface
+     * @return \Magento\Backend\Model\View\Result\Redirect
      */
-    public function execute()
+    public function execute(): Redirect
     {
-        $data = $this->getRequest()->getPostValue();
-        /** \Gene\SizeGuide\Model\SizeGuide $sizeGuide */
+        $data = $this->getRequest()->getPostValue(); // @phpstan-ignore-line
+        /** @var \Gene\SizeGuide\Model\SizeGuide $sizeGuide */
         $sizeGuide = $this->factory->create();
 
         if (isset($data['id']) && $data['id'] !== '') {
             $sizeGuide->setId($data['id']);
         }
+
         $sizeGuide->setStatus($data['status']);
         $sizeGuide->setContent($data['content']);
         $sizeGuide->setTableCm($data['table_cm']);
@@ -68,10 +67,10 @@ class Save extends Action
 
         try {
             $this->sizeGuideRepository->save($sizeGuide);
-            $this->messageManager->addSuccessMessage(__('Size guide saved.'));
+            $this->messageManager->addSuccessMessage(__('Size guide saved.')); // @phpstan-ignore-line
             return $this->processResultRedirect($result, $data);
-        } catch (\Exception $e) {
-            $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving.'));
+        } catch (Exception $e) {
+            $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving.')); // @phpstan-ignore-line
             return $result->setUrl($this->_redirect->getRefererUrl());
         }
     }
@@ -82,13 +81,15 @@ class Save extends Action
      * @param array $data
      * @return Redirect
      */
-    private function processResultRedirect($resultRedirect, $data)
-    {
+    private function processResultRedirect(
+        Redirect $resultRedirect,
+        array $data
+    ): Redirect {
         if ($this->getRequest()->getParam('back', false) === 'duplicate') {
             $newSizeGuide = $this->factory->create(['data' => $data]);
             $newSizeGuide->setId(null);
             $this->sizeGuideRepository->save($newSizeGuide);
-            $this->messageManager->addSuccessMessage(__('You duplicated the page.'));
+            $this->messageManager->addSuccessMessage(__('You duplicated the page.')); // @phpstan-ignore-line
         }
         return $resultRedirect->setPath('*/*/index');
     }
@@ -96,7 +97,7 @@ class Save extends Action
     /**
      * @return bool
      */
-    protected function _isAllowed() // phpcs:ignore
+    protected function _isAllowed(): bool // phpcs:ignore
     {
         return $this->_authorization->isAllowed('Sunspel_SizeGuide::menu_sizeguide_create_edit');
     }

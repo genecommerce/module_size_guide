@@ -11,11 +11,9 @@ use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Data\Collection\Db\FetchStrategyInterface;
 use Magento\Framework\Data\Collection\EntityFactoryInterface;
 use Magento\Framework\DB\Adapter\AdapterInterface;
-use Magento\Framework\EntityManager\MetadataPool;
 use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Framework\View\Element\UiComponent\DataProvider\Document;
-use Magento\Store\Model\StoreManagerInterface;
 use Gene\SizeGuide\Model\ResourceModel\SizeGuide\Collection as SizeGuideCollection;
 
 class Collection extends SizeGuideCollection implements SearchResultInterface
@@ -23,22 +21,20 @@ class Collection extends SizeGuideCollection implements SearchResultInterface
     /**
      * @var AggregationInterface
      */
-    protected $aggregations;
+    protected AggregationInterface $aggregations;
 
     /**
-     * @param EntityFactoryInterface $entityFactory
+     * @param \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory
      * @param \Psr\Log\LoggerInterface $logger
-     * @param FetchStrategyInterface $fetchStrategy
-     * @param ManagerInterface $eventManager
-     * @param StoreManagerInterface $storeManager
-     * @param MetadataPool $metadataPool
-     * @param string $mainTable
-     * @param string $eventPrefix
-     * @param string $eventObject
-     * @param string $resourceModel
-     * @param string $model
-     * @param AdapterInterface|string|null $connection
-     * @param AbstractDb $resource
+     * @param \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
+     * @param $mainTable
+     * @param $eventPrefix
+     * @param $eventObject
+     * @param $resourceModel
+     * @param $model
+     * @param \Magento\Framework\DB\Adapter\AdapterInterface|null $connection
+     * @param \Magento\Framework\Model\ResourceModel\Db\AbstractDb|null $resource
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
@@ -47,8 +43,6 @@ class Collection extends SizeGuideCollection implements SearchResultInterface
         \Psr\Log\LoggerInterface $logger,
         FetchStrategyInterface $fetchStrategy,
         ManagerInterface $eventManager,
-        StoreManagerInterface $storeManager,
-        MetadataPool $metadataPool,
         $mainTable,
         $eventPrefix,
         $eventObject,
@@ -90,7 +84,7 @@ class Collection extends SizeGuideCollection implements SearchResultInterface
     /**
      * @return AggregationInterface
      */
-    public function getAggregations()
+    public function getAggregations(): AggregationInterface
     {
         return $this->aggregations;
     }
@@ -99,7 +93,7 @@ class Collection extends SizeGuideCollection implements SearchResultInterface
      * @param AggregationInterface $aggregations
      * @return $this
      */
-    public function setAggregations($aggregations)
+    public function setAggregations($aggregations): Collection
     {
         $this->aggregations = $aggregations;
         return $this;
@@ -110,7 +104,7 @@ class Collection extends SizeGuideCollection implements SearchResultInterface
      *
      * @return SearchCriteriaInterface|null
      */
-    public function getSearchCriteria()
+    public function getSearchCriteria(): ?SearchCriteriaInterface
     {
         return null;
     }
@@ -118,11 +112,11 @@ class Collection extends SizeGuideCollection implements SearchResultInterface
     /**
      * Set search criteria.
      *
-     * @param SearchCriteriaInterface $searchCriteria
+     * @param \Magento\Framework\Api\SearchCriteriaInterface|null $searchCriteria
      * @return $this
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function setSearchCriteria(SearchCriteriaInterface $searchCriteria = null)
+    public function setSearchCriteria(SearchCriteriaInterface $searchCriteria = null): Collection
     {
         return $this;
     }
@@ -132,7 +126,7 @@ class Collection extends SizeGuideCollection implements SearchResultInterface
      *
      * @return int
      */
-    public function getTotalCount()
+    public function getTotalCount(): int
     {
         return $this->getSize();
     }
@@ -144,7 +138,7 @@ class Collection extends SizeGuideCollection implements SearchResultInterface
      * @return $this
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function setTotalCount($totalCount)
+    public function setTotalCount($totalCount): Collection
     {
         return $this;
     }
@@ -156,7 +150,7 @@ class Collection extends SizeGuideCollection implements SearchResultInterface
      * @return $this
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function setItems(array $items = null)
+    public function setItems(array $items = null): Collection
     {
         return $this;
     }

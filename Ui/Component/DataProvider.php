@@ -81,7 +81,7 @@ class DataProvider extends ProviderAlias
     /**
      * @return array
      */
-    public function prepareMetadata()
+    public function prepareMetadata(): array
     {
         $metadata = [];
         // #TODO: add acl for Gene\SizeGuide

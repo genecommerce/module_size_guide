@@ -11,15 +11,13 @@ use Magento\Ui\Component\Listing\Columns\Column;
 
 class SizeGuideActions extends Column
 {
-
-    const URL_PATH_EDIT = 'sizeguide/index/edit';
-
-    const URL_PATH_DELETE = 'sizeguide/index/delete';
+    public const URL_PATH_EDIT = 'sizeguide/index/edit';
+    public const URL_PATH_DELETE = 'sizeguide/index/delete';
 
     /**
      * @var UrlInterface
      */
-    protected $urlBuilder;
+    protected UrlInterface $urlBuilder;
 
     /**
      * SizeGuideActions constructor.
@@ -44,7 +42,7 @@ class SizeGuideActions extends Column
      * @param array $dataSource
      * @return array
      */
-    public function prepareDataSource(array $dataSource)
+    public function prepareDataSource(array $dataSource): array
     {
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as &$item) {

@@ -12,7 +12,7 @@ class Save extends Button implements ButtonProviderInterface
     /**
      * @return array
      */
-    public function getButtonData()
+    public function getButtonData(): array
     {
         return [
             'label' => __('Save'),
@@ -45,23 +45,47 @@ class Save extends Button implements ButtonProviderInterface
      *
      * @return array
      */
-    private function getOptions()
+    private function getOptions(): array
     {
-        $options = [
+        return
             [
-                'label' => __('Save & Duplicate'),
-                'id_hard' => 'save_and_duplicate',
-                'data_attribute' => [
-                    'mage-init' => [
-                        'buttonAdapter' => [
-                            'actions' => [
-                                [
-                                    'targetName' => 'size_guide_form.size_guide_form',
-                                    'actionName' => 'save',
-                                    'params' => [
-                                        true,
-                                        [
-                                            'back' => 'duplicate'
+                [
+                    'label' => __('Save & Duplicate'),
+                    'id_hard' => 'save_and_duplicate',
+                    'data_attribute' => [
+                        'mage-init' => [
+                            'buttonAdapter' => [
+                                'actions' => [
+                                    [
+                                        'targetName' => 'size_guide_form.size_guide_form',
+                                        'actionName' => 'save',
+                                        'params' => [
+                                            true,
+                                            [
+                                                'back' => 'duplicate'
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    'id_hard' => 'save_and_close',
+                    'label' => __('Save & Close'),
+                    'data_attribute' => [
+                        'mage-init' => [
+                            'buttonAdapter' => [
+                                'actions' => [
+                                    [
+                                        'targetName' => 'size_guide_form.size_guide_form',
+                                        'actionName' => 'save',
+                                        'params' => [
+                                            true,
+                                            [
+                                                'back' => 'close'
+                                            ]
                                         ]
                                     ]
                                 ]
@@ -69,31 +93,6 @@ class Save extends Button implements ButtonProviderInterface
                         ]
                     ]
                 ]
-            ],
-            [
-                'id_hard' => 'save_and_close',
-                'label' => __('Save & Close'),
-                'data_attribute' => [
-                    'mage-init' => [
-                        'buttonAdapter' => [
-                            'actions' => [
-                                [
-                                    'targetName' => 'size_guide_form.size_guide_form',
-                                    'actionName' => 'save',
-                                    'params' => [
-                                        true,
-                                        [
-                                            'back' => 'close'
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ];
-
-        return $options;
+            ];
     }
 }

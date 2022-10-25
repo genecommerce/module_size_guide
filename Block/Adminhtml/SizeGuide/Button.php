@@ -13,16 +13,15 @@ use Magento\Framework\Exception\NoSuchEntityException;
  */
 class Button
 {
-
     /**
      * @var Context
      */
-    protected $context;
+    protected Context $context;
 
     /**
      * @var SizeGuideRepositoryInterface
      */
-    protected $sizeGuideRepository;
+    protected SizeGuideRepositoryInterface $sizeGuideRepository;
 
     /**
      * @param Context $context
@@ -41,7 +40,7 @@ class Button
      *
      * @return int|null
      */
-    public function getSizeGuideId()
+    public function getSizeGuideId(): ?int
     {
         // @codingStandardsIgnoreStart
         try {
@@ -61,8 +60,13 @@ class Button
      * @param   array $params
      * @return  string
      */
-    public function getUrl($route = '', $params = [])
-    {
-        return $this->context->getUrlBuilder()->getUrl($route, $params);
+    public function getUrl(
+        string $route = '',
+        array $params = []
+    ): string {
+        return $this->context->getUrlBuilder()->getUrl(
+            $route,
+            $params
+        );
     }
 }

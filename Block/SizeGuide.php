@@ -132,8 +132,9 @@ class SizeGuide extends Template
 
     /**
      * Set Body Class on page
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function setBodyClass()
+    public function setBodyClass(): void
     {
         if ($this->getSizeChart()) {
             $this->pageConfig->addBodyClass('has-size-chart');

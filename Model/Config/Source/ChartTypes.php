@@ -9,19 +9,22 @@ use Magento\Eav\Model\Entity\Attribute\Source\AbstractSource;
 use Magento\Eav\Model\Entity\Attribute\Source\SourceInterface;
 use Magento\Framework\Data\OptionSourceInterface;
 
-class ChartTypes extends AbstractSource implements SourceInterface, OptionSourceInterface
+class ChartTypes extends AbstractSource
 {
 
     /**
      * @var array
      */
-    protected $options;
+    protected array $options;
 
     /**
      * @var Collection
      */
-    private $collection;
+    private Collection $collection;
 
+    /**
+     * @param \Gene\SizeGuide\Model\ResourceModel\SizeGuide\Collection $collection
+     */
     public function __construct(
         Collection $collection
     ) {
@@ -31,9 +34,9 @@ class ChartTypes extends AbstractSource implements SourceInterface, OptionSource
     /**
      * @return array
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
-        if ($this->options === null) {
+        if (empty($this->options)) {
             $collection = $this->collection->addFieldToSelect('id')
                 ->addFieldToSelect('title')
                 ->addFieldToFilter('status', ['eq' => '1']);
@@ -55,7 +58,10 @@ class ChartTypes extends AbstractSource implements SourceInterface, OptionSource
         return $this->options;
     }
 
-    public function getAllOptions()
+    /**
+     * @return array
+     */
+    public function getAllOptions(): array
     {
         return $this->toOptionArray();
     }

@@ -20,12 +20,12 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
     /**
      * @var Filter
      */
-    protected $filter;
+    protected Filter $filter;
 
     /**
      * @var CollectionFactory
      */
-    protected $collectionFactory;
+    protected CollectionFactory $collectionFactory;
 
     /**
      * @param Context $context
@@ -48,7 +48,7 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
      * @return \Magento\Backend\Model\View\Result\Redirect
      * @throws \Magento\Framework\Exception\LocalizedException|\Exception
      */
-    public function execute()
+    public function execute(): \Magento\Backend\Model\View\Result\Redirect
     {
         $collection = $this->filter->getCollection($this->collectionFactory->create());
         $i = $collection->getSize();
@@ -65,7 +65,7 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
     /**
      * @return bool
      */
-    protected function _isAllowed() // phpcs:ignore
+    protected function _isAllowed(): bool // phpcs:ignore
     {
         return $this->_authorization->isAllowed('Sunspel_SizeGuide::menu_sizeguide_create_edit');
     }
