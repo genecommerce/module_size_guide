@@ -65,6 +65,8 @@ class DataProvider extends ModifierPoolDataProvider
         if (isset($this->loadedData)) {
             return $this->loadedData;
         }
+
+        $this->loadedData = [];
         $items = $this->collection;
 
         /** @var SizeGuide $guide */
@@ -74,11 +76,11 @@ class DataProvider extends ModifierPoolDataProvider
         }
 
         // @todo: Figure out why this is here
-//        if (!empty($data)) {
-//            $guide = $this->collection->getNewEmptyItem();
-//            $guide->setData($data);
-//            $this->loadedData[$guide->getId()] = $guide->getData();
-//        }
+        if (!empty($data)) {
+            $guide = $this->collection->getNewEmptyItem();
+            $guide->setData($data);
+            $this->loadedData[$guide->getId()] = $guide->getData();
+        }
 
         return $this->loadedData;
     }

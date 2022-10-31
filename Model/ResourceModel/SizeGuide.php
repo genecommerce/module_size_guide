@@ -143,11 +143,11 @@ class SizeGuide extends AbstractDb
 
     /**
      * @param $title
-     * @return array
-     * @throws LocalizedException
-     * @throws NoSuchEntityException
+     * @return mixed
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function lookupSizeGuideByStore($title): array
+    public function lookupSizeGuideByStore($title)
     {
         $connection = $this->getConnection();
         $storeId = $this->_storeManager->getStore()->getId();
