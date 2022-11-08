@@ -15,9 +15,9 @@ class Index extends Action
     /**
      * Admin listing page controller
      *
-     * @return ResultInterface|ResponseInterface
+     * @return ResultInterface
      */
-    public function execute()
+    public function execute(): ResultInterface
     {
         return $this->resultFactory->create(ResultFactory::TYPE_PAGE);
     }
@@ -25,7 +25,7 @@ class Index extends Action
     /**
      * @return bool
      */
-    protected function _isAllowed() // phpcs:ignore
+    protected function _isAllowed(): bool // phpcs:ignore
     {
         return $this->_authorization->isAllowed('Sunspel_SizeGuide::menu_sizeguide_create_edit');
     }

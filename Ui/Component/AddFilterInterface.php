@@ -18,5 +18,8 @@ interface AddFilterInterface
      * @param Filter $filter
      * @return mixed
      */
-    public function addFilter(SearchCriteriaBuilder $searchCriteriaBuilder, Filter $filter);
+    public function addFilter(
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        Filter $filter
+    );
 }

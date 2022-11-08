@@ -25,7 +25,7 @@ class Create extends Action
     /**
      * @return bool
      */
-    protected function _isAllowed() // phpcs:ignore
+    protected function _isAllowed(): bool // phpcs:ignore
     {
         return $this->_authorization->isAllowed('Sunspel_SizeGuide::menu_sizeguide_create_edit');
     }

@@ -21,14 +21,14 @@ class SizeGuide extends AbstractDb
      *
      * @var null|Store
      */
-    protected $_store = null;
+    protected ?Store $_store = null;
 
     /**
      * Store manager
      *
      * @var StoreManagerInterface
      */
-    protected $_storeManager;
+    protected StoreManagerInterface $_storeManager;
 
     /**
      * @param Context $context
@@ -59,7 +59,7 @@ class SizeGuide extends AbstractDb
      * @param AbstractModel $sizeGuide
      * @return AbstractDb
      */
-    protected function _afterSave(AbstractModel $sizeGuide) // phpcs:ignore
+    protected function _afterSave(AbstractModel $sizeGuide): AbstractDb // phpcs:ignore
     {
         $this->saveToStores($sizeGuide);
         return parent::_afterSave($sizeGuide);
@@ -70,7 +70,7 @@ class SizeGuide extends AbstractDb
      * @param $sizeGuide
      * @return $this
      */
-    protected function saveToStores($sizeGuide)
+    protected function saveToStores($sizeGuide): SizeGuide
     {
         $table = $this->getTable('gene_sizeguide_store');
         if (!$sizeGuide->hasStoreId()) {
@@ -89,9 +89,7 @@ class SizeGuide extends AbstractDb
                     'row_id'     => (int)$sizeGuide->getId()
                 ];
             }
-            if ($data) {
-                $connection->insertMultiple($table, $data);
-            }
+            $connection->insertMultiple($table, $data);
         }
         if (!empty($delete)) {
             foreach ($delete as $storeId) {
@@ -107,7 +105,7 @@ class SizeGuide extends AbstractDb
      * @param \Gene\SizeGuide\Api\Data\SizeGuideInterface $sizeGuide
      * @return array
      */
-    public function getStoreIds($sizeGuide)
+    public function getStoreIds(SizeGuideInterface $sizeGuide): array
     {
         $connection = $this->getConnection();
         $select = $connection->select()->from(
@@ -118,8 +116,7 @@ class SizeGuide extends AbstractDb
             (int)$sizeGuide->getId()
         );
 
-        $test = $connection->fetchCol($select);
-        return $test;
+        return $connection->fetchCol($select);
     }
 
     /**
@@ -128,7 +125,7 @@ class SizeGuide extends AbstractDb
      * @return array
      * @throws LocalizedException
      */
-    public function lookupStoreIds($id)
+    public function lookupStoreIds($id): array
     {
         $connection = $this->getConnection();
 
@@ -150,7 +147,7 @@ class SizeGuide extends AbstractDb
      * @throws LocalizedException
      * @throws NoSuchEntityException
      */
-    public function lookupSizeGuideByStore($title)
+    public function lookupSizeGuideByStore($title): array
     {
         $connection = $this->getConnection();
         $storeId = $this->_storeManager->getStore()->getId();
@@ -173,7 +170,7 @@ class SizeGuide extends AbstractDb
      * @param Store $store
      * @return $this
      */
-    public function setStore($store)
+    public function setStore(Store $store): SizeGuide
     {
         $this->_store = $store;
         return $this;
@@ -184,7 +181,7 @@ class SizeGuide extends AbstractDb
      * @return StoreInterface
      * @throws NoSuchEntityException
      */
-    public function getStore()
+    public function getStore(): StoreInterface
     {
         return $this->_storeManager->getStore($this->_store);
     }

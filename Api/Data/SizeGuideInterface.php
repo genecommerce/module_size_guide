@@ -6,14 +6,13 @@ namespace Gene\SizeGuide\Api\Data;
 
 interface SizeGuideInterface
 {
-
-    const ID = 'id';
-    const STATUS = 'status';
-    const TITLE = 'title';
-    const CONTENT = 'content';
-    const TABLE_CM = 'table_cm';
-    const TABLE_IN = 'table_in';
-    const STORE_ID = 'store_id';
+    public const ID = 'id';
+    public const STATUS = 'status';
+    public const TITLE = 'title';
+    public const CONTENT = 'content';
+    public const TABLE_CM = 'table_cm';
+    public const TABLE_IN = 'table_in';
+    public const STORE_ID = 'store_id';
 
     /**
      * @return mixed
@@ -65,7 +64,7 @@ interface SizeGuideInterface
     public function getTableIn();
 
     /**
-     * @param $tableIn
+     * @param mixed $tableIn
      * @return mixed
      */
     public function setTableIn($tableIn);
@@ -76,7 +75,7 @@ interface SizeGuideInterface
     public function getTableCm();
 
     /**
-     * @param $tableCm
+     * @param mixed $tableCm
      * @return mixed
      */
     public function setTableCm($tableCm);
@@ -84,11 +83,11 @@ interface SizeGuideInterface
     /**
      * @return int[]
      */
-    public function getStoreId();
+    public function getStoreId(): array;
 
     /**
      * @param int[] $storeId
      * @return $this
      */
-    public function setStoreId($storeId);
+    public function setStoreId(array $storeId): SizeGuideInterface;
 }

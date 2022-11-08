@@ -74,16 +74,16 @@ class Collection extends AbstractCollection
      * Allow filtering by store id
      * @return AbstractCollection|void
      */
-    protected function _initSelect()                          // phpcs:ignore
+    protected function _initSelect() // phpcs:ignore
     {
-        return parent::_initSelect();
+        return parent::_initSelect(); // @phpstan-ignore-line
     }
 
     /**
      * @param $storeId
      * @return $this
      */
-    public function addStoreFilter($storeId)
+    public function addStoreFilter($storeId): Collection
     {
         $this->getSelect()
             ->where('`store_id` = ?', $storeId);

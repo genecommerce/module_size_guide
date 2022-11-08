@@ -24,7 +24,7 @@ class SizeGuide extends AbstractModel implements SizeGuideInterface
      *
      * @return int[]
      */
-    public function getStores()
+    public function getStores(): array
     {
         return $this->hasData('stores') ? $this->getData('stores') : (array)$this->getData('store_id');
     }
@@ -58,7 +58,7 @@ class SizeGuide extends AbstractModel implements SizeGuideInterface
      * @param $status
      * @return SizeGuide
      */
-    public function setStatus($status)
+    public function setStatus($status): SizeGuide
     {
         return $this->setData(self::STATUS, $status);
     }
@@ -72,10 +72,10 @@ class SizeGuide extends AbstractModel implements SizeGuideInterface
     }
 
     /**
-     * @param $status
+     * @param $title
      * @return SizeGuide
      */
-    public function setTitle($title)
+    public function setTitle($title): SizeGuide
     {
         return $this->setData(self::TITLE, $title);
     }
@@ -92,7 +92,7 @@ class SizeGuide extends AbstractModel implements SizeGuideInterface
      * @param $content
      * @return SizeGuide
      */
-    public function setContent($content)
+    public function setContent($content): SizeGuide
     {
         return $this->setData(self::CONTENT, $content);
     }
@@ -106,10 +106,10 @@ class SizeGuide extends AbstractModel implements SizeGuideInterface
     }
 
     /**
-     * @param $content
+     * @param $tableIn
      * @return SizeGuide
      */
-    public function setTableIn($tableIn)
+    public function setTableIn($tableIn): SizeGuide
     {
         return $this->setData(self::TABLE_IN, $tableIn);
     }
@@ -123,10 +123,10 @@ class SizeGuide extends AbstractModel implements SizeGuideInterface
     }
 
     /**
-     * @param $content
+     * @param $tableCm
      * @return SizeGuide
      */
-    public function setTableCm($tableCm)
+    public function setTableCm($tableCm): SizeGuide
     {
         return $this->setData(self::TABLE_CM, $tableCm);
     }
@@ -134,10 +134,10 @@ class SizeGuide extends AbstractModel implements SizeGuideInterface
     /**
      * @return array|int[]
      */
-    public function getStoreId()
+    public function getStoreId(): array
     {
         if (!$this->hasData(self::STORE_ID)) {
-            $ids = $this->getResource()->getStoreIds($this);
+            $ids = $this->getResource()->getStoreIds($this); // @phpstan-ignore-line
             $this->setData(self::STORE_ID, $ids);
         }
         return (array)$this->_getData(self::STORE_ID);
@@ -147,7 +147,7 @@ class SizeGuide extends AbstractModel implements SizeGuideInterface
      * @param int[] $storeId
      * @return SizeGuideInterface|SizeGuide
      */
-    public function setStoreId($storeId)
+    public function setStoreId(array $storeId): SizeGuideInterface
     {
         return $this->setData(self::STORE_ID, $storeId);
     }

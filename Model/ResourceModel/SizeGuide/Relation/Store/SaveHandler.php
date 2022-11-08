@@ -4,30 +4,26 @@ namespace Gene\SizeGuide\Model\ResourceModel\SizeGuide\Relation\Store;
 
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\EntityManager\Operation\ExtensionInterface;
-use Gene\SizeGuide\Api\Data\SizeGuideInterface;
 use Gene\SizeGuide\Model\ResourceModel\SizeGuide;
 use Magento\Framework\EntityManager\MetadataPool;
 use Magento\Framework\App\ResourceConnection;
 
-/**
- * Class SaveHandler
- */
 class SaveHandler implements ExtensionInterface
 {
     /**
      * @var MetadataPool
      */
-    protected $metadataPool;
+    protected MetadataPool $metadataPool;
 
     /**
      * @var ResourceConnection
      */
-    protected $resourceConnection;
+    protected ResourceConnection $resourceConnection;
 
     /**
      * @var SizeGuide
      */
-    protected $resourceSizeGuide;
+    protected SizeGuide $resourceSizeGuide;
 
     /**
      * @param MetadataPool $metadataPool
@@ -50,10 +46,12 @@ class SaveHandler implements ExtensionInterface
      * @return object
      * @throws \Exception
      */
-    public function execute($entity, $arguments = [])
-    {
+    public function execute(
+        $entity,
+        $arguments = []
+    ): object {
         /** @var AdapterInterface $connection */
-        $connection = $this->resourceConnection->getConnectionByName(null);
+        $connection = $this->resourceConnection->getConnectionByName(null); // @phpstan-ignore-line
         $oldStores = $this->resourceSizeGuide->lookupStoreIds((int)$entity->getId());
         $newStores = (array)$entity->getStores();
         if (empty($newStores)) {

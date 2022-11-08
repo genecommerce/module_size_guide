@@ -8,10 +8,8 @@ use Magento\Framework\Exception\LocalizedException;
 use Gene\SizeGuide\Api\Data\SizeGuideInterface;
 use Gene\SizeGuide\Api\SizeGuideRepositoryInterface;
 use Gene\SizeGuide\Model\ResourceModel\SizeGuide;
-use Gene\SizeGuide\Model\ResourceModel\SizeGuide\Collection;
 use Gene\SizeGuide\Model\SizeGuideFactory;
 use Gene\SizeGuide\Model\ResourceModel\SizeGuide\CollectionFactory;
-use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -22,24 +20,23 @@ use Magento\Store\Model\StoreManagerInterface;
  */
 class SizeGuideRepository implements SizeGuideRepositoryInterface
 {
-
     /**
      * @var SizeGuide
      */
-    protected $resource;
+    protected SizeGuide $resource;
 
     /**
      * @var SizeGuideFactory
      */
-    protected $factory;
+    protected \Gene\SizeGuide\Model\SizeGuideFactory $factory;
 
     /**
      * @var CollectionFactory
      */
-    protected $collectionFactory;
+    protected CollectionFactory $collectionFactory;
 
     /** @var StoreManagerInterface */
-    protected $storeManager;
+    protected StoreManagerInterface $storeManager;
 
     /**
      * SizeGuideRepository constructor.
@@ -65,10 +62,10 @@ class SizeGuideRepository implements SizeGuideRepositoryInterface
      * @return SizeGuideInterface
      * @throws CouldNotSaveException
      */
-    public function save(SizeGuideInterface $guide)
+    public function save(SizeGuideInterface $guide): SizeGuideInterface
     {
         try {
-            $this->resource->save($guide);
+            $this->resource->save($guide); // @phpstan-ignore-line
         } catch (\Exception $e) {
             throw new CouldNotSaveException(__($e->getMessage()));
         }
@@ -99,8 +96,8 @@ class SizeGuideRepository implements SizeGuideRepositoryInterface
         $sizeGuide = $this->factory->create();
         try {
             $guide = $this->resource->lookupSizeGuideByStore($title);
-        } catch (NoSuchEntityException $e) {
-        } catch (LocalizedException $e) {
+        } catch (NoSuchEntityException|LocalizedException $e) {
+            // @todo: Add logger or thrown exception.
         }
         if (isset($guide['id'])) {
             $this->resource->load($sizeGuide, $guide['id']);
@@ -119,7 +116,7 @@ class SizeGuideRepository implements SizeGuideRepositoryInterface
     public function delete(SizeGuideInterface $guide)
     {
         try {
-            $this->resource->delete($guide);
+            $this->resource->delete($guide); // @phpstan-ignore-line
         } catch (\Exception $e) {
             throw new CouldNotDeleteException(__($e->getMessage()));
         }

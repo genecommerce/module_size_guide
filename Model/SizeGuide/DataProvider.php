@@ -21,12 +21,12 @@ class DataProvider extends ModifierPoolDataProvider
     /**
      * @var DataPersistorInterface
      */
-    protected $dataPersistor;
+    protected DataPersistorInterface $dataPersistor;
 
     /**
      * @var array
      */
-    protected $loadedData;
+    protected array $loadedData;
 
     /**
      * Constructor
@@ -60,23 +60,25 @@ class DataProvider extends ModifierPoolDataProvider
      *
      * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         if (isset($this->loadedData)) {
             return $this->loadedData;
         }
         $items = $this->collection;
+
         /** @var SizeGuide $guide */
         foreach ($items as $guide) {
             $this->loadedData[$guide->getId()] = $guide->getData();
             $this->loadedData[$guide->getId()]['store_id'] = $guide->getStoreId();
         }
 
-        if (!empty($data)) {
-            $guide = $this->collection->getNewEmptyItem();
-            $guide->setData($data);
-            $this->loadedData[$guide->getId()] = $guide->getData();
-        }
+        // @todo: Figure out why this is here
+//        if (!empty($data)) {
+//            $guide = $this->collection->getNewEmptyItem();
+//            $guide->setData($data);
+//            $this->loadedData[$guide->getId()] = $guide->getData();
+//        }
 
         return $this->loadedData;
     }
