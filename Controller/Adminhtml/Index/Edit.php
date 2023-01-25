@@ -64,6 +64,6 @@ class Edit extends \Magento\Backend\App\Action implements \Magento\Framework\App
      */
     protected function _isAllowed(): bool // phpcs:ignore
     {
-        return $this->_authorization->isAllowed('Sunspel_SizeGuide::menu_sizeguide_create_edit');
+        return $this->_authorization->isAllowed('Gene_SizeGuide::menu_sizeguide_create_edit');
     }
 }
