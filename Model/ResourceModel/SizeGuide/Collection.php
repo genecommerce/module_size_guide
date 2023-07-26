@@ -85,9 +85,10 @@ class Collection extends AbstractCollection
      */
     public function addStoreFilter($storeId): Collection
     {
-        $this->getSelect()
-            ->where('`store_id` = ?', $storeId);
-
+        if ($this->_joinedTables !== []) {
+            $this->getSelect()
+                ->where('`store_id` = ?', $storeId);
+        }
         return $this;
     }
 }
