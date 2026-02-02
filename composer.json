@@ -3,7 +3,7 @@
     "description": "",
     "require": {
         "php": "^8.4",
-        "magento/module-ui": "*",
+        "magento/module-ui": "*"
     },
     "type": "magento2-module",
     "autoload": {
