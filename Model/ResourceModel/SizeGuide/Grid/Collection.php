@@ -48,8 +48,8 @@ class Collection extends SizeGuideCollection implements SearchResultInterface
         $eventObject,
         $resourceModel,
         $model = Document::class,
-        AdapterInterface $connection = null,
-        AbstractDb $resource = null
+        ?AdapterInterface $connection = null,
+        ?AbstractDb $resource = null
     ) {
         parent::__construct(
             $entityFactory,
@@ -116,7 +116,7 @@ class Collection extends SizeGuideCollection implements SearchResultInterface
      * @return $this
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function setSearchCriteria(SearchCriteriaInterface $searchCriteria = null): Collection
+    public function setSearchCriteria(?SearchCriteriaInterface $searchCriteria = null): Collection
     {
         return $this;
     }
@@ -150,7 +150,7 @@ class Collection extends SizeGuideCollection implements SearchResultInterface
      * @return $this
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function setItems(array $items = null): Collection
+    public function setItems(?array $items = null): Collection
     {
         return $this;
     }

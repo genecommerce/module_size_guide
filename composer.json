@@ -2,10 +2,10 @@
     "name": "gene/sizeguide",
     "description": "",
     "require": {
-        "magento/magento-composer-installer": "*"
+        "php": "^8.4",
+        "magento/module-ui": "*",
     },
     "type": "magento2-module",
-    "version": "0.0.4",
     "autoload": {
         "files": [
             "registration.php"
